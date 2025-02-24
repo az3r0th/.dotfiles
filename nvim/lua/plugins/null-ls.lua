@@ -7,6 +7,7 @@ return {
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.alejandra,
       },
       on_attach = function(client, bufnr)
         if client.server_capabilities.documentFormattingProvider then
