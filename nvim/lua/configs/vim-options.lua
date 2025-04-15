@@ -1,52 +1,59 @@
--- Line ending setting
 local opt = vim.opt
+local g = vim.g
+
+-- Line ending and encoding
 opt.fileformat = "unix"
+opt.fileencoding = "utf-8"
 opt.fillchars = { eob = " " }
--- Tab and indentation settings
+
+-- Tab and indentation
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.tabstop = 2
 opt.softtabstop = 2
+opt.smartindent = true
 
--- General useful settings
+-- Line numbers and cursor
 opt.number = true
 opt.relativenumber = false
-opt.smartindent = true
-opt.wrap = false
 opt.cursorline = true
+opt.signcolumn = "yes"
+
+-- Search
 opt.ignorecase = true
 opt.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
+
+-- Performance
+opt.lazyredraw = true
+opt.updatetime = 300
+opt.timeoutlen = 300
+
+-- UI
+opt.wrap = false
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.termguicolors = true
+
+-- Backup and undo
 opt.undofile = true
+opt.backup = false
+opt.writebackup = false
+opt.swapfile = false
 
--- Leader Key Mappings
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-vim.keymap.set('n', ';', ':', { desc = "Command Key" })
+-- Leader Key settings
+g.mapleader = " "
+g.maplocalleader = "\\"
 
-
---For Better life
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  { desc = "Find & Replace Current word" })
-function ReloadLazyConfig()
-  for name, _ in pairs(package.loaded) do
-    if name:match("^plugins") then
-      package.loaded[name] = nil
-    end
-  end
-  dofile(vim.fn.stdpath("config") .. "/init.lua")
-  vim.cmd("Lazy sync")
-end
-
--- Force zsh filetype aliased as sh 
+-- Filetype settings
 vim.filetype.add {
 	extension = {
 		zsh = "sh",
-		sh = "sh", -- force sh-files with zsh-shebang to still get sh as filetype
+		sh = "sh",
 	},
 	filename = {
 		[".zshrc"] = "sh",
 		[".zshenv"] = "sh",
 	},
 }
-
-vim.keymap.set("n", "<leader>rl", ReloadLazyConfig, { desc = "Reload Lazy Config" })
