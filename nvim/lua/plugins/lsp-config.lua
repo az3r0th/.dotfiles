@@ -14,6 +14,7 @@ return {
           "bashls",
           "rust_analyzer",
           "pyright",
+          "gopls",
         },
         automatic_installation = true,
         handlers = {
@@ -31,7 +32,43 @@ return {
               settings = {
                 Lua = {
                   diagnostics = {
-                    globals = { "vim" }, --"it", "describe", "before_each", "after_each" },
+                    globals = { "vim" },
+                  },
+                },
+              },
+            })
+          end,
+          ["gopls"] = function()
+            local lspconfig = require("lspconfig")
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            lspconfig.gopls.setup({
+              capabilities = capabilities,
+              settings = {
+                gopls = {
+                  analyses = {
+                    unusedparams = true,
+                    shadow = true,
+                    nilness = true,
+                    unusedwrite = true,
+                    useany = true,
+                    unusedvariable = true,
+                  },
+                  staticcheck = true,
+                  gofumpt = true,
+                  codelenses = {
+                    generate = true,
+                    gc_details = true,
+                    test = true,
+                    tidy = true,
+                  },
+                  hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
                   },
                 },
               },
@@ -54,20 +91,18 @@ return {
         vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
       end
-      lspconfig.lua_ls.setup({
-        on_attach = on_attach,
-      })
+
+      -- Apply on_attach to all LSP clients
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      require("lspconfig").lua_ls.setup({
+      local default_config = {
         capabilities = capabilities,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-          },
-        },
-      })
+        on_attach = on_attach,
+      }
+
+      -- Apply default config to all LSP servers
+      for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
+        lspconfig[server].setup(default_config)
+      end
     end,
   },
 }
