@@ -122,4 +122,3 @@ source ~/.zsh_aliases
 # Created by `pipx` on 2025-04-09 18:45:07
 export PATH="$PATH:/home/azeroth/.local/bin"
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
-export GEMINI_API_KEY=AIzaSyCpDEMwb-Y6tiNTM0y4G-0o2yKwp09CqoM
