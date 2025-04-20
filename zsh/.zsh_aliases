@@ -1,17 +1,10 @@
-alias python=python3
-alias erepo="cd ~/repos/esper/esper-platform"
-
-# TF alias
-alias tfw="terraform workspace"
-alias tfwn="terraform workspace new"
-alias tfwl="terraform workspace list"
-alias tfws="terraform workspace select"
-alias tfwd="terraform workspace delete" 
-
-# Kubernetes Aliases
-alias ktx="kubectx"
-alias kns="kubens"
-
-#Vim
 alias vi="nvim"
 alias vim="nvim"
+alias neovim="nvim"
+alias yi="yay -Sy"
+alias yu="yay -Syu"
+alias yr="yay -R"
+alias yq="yay -Q"
+alias oin='nvim $(fzf -m --preview="bat --color=always {}")'
+alias ls="lsd"
+alias tmux="tmux -u"
