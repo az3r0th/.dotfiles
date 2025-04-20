@@ -1,0 +1,259 @@
+{
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+    "hyprland/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "hyprland/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": [
+            "",
+            ""
+        ],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "hyprland/workspaces": {
+        "active-only": true,
+        "disable-scroll": true,
+        "sort-by-number": true,
+        "warp-on-scroll": true,
+        "on-click": "activate",
+        "persistent-workspaces": {
+            "*": 3
+        },
+    },
+    "hyprland/language": {
+        "format-en": "en",
+        "format-ar": "عربي"
+    },
+    "hyprland/window": {
+        "format": "{class}",
+        "max-length": 50,
+        "icon": true,
+        "icon-size": 16,
+        "seperate-outputs": true
+    },
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": [
+            "temperature",
+            "cpu",
+            "memory"
+        ]
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": true,
+        "interval": 1
+    },
+    "memory": {
+        "format": "{}% ",
+        "interval": 1
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": [
+            "󱊡",
+            "󱊢",
+            "󱊣"
+        ],
+        "format-time": "{H}h {M}min",
+        "tooltip": true,
+        "tooltip-format": "{timeTo} {power}w",
+        "interval": 1
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+     "tray": {
+         "format": "<span foreground='#ebdbb2'>{icon}</span>",
+     	  "icon-size": 14,
+     	  "spacing": 5
+     },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "<span foreground='#98971a'> </span><span>{:%I:%M %a %d}</span>", //"{:%I:%M %p}"
+        "format-alt": "<span foreground='#b16286'> </span><span>{:%H:%M %a %d}</span>", //"{:%Y-%m-%d}",
+        "actions": {
+            "on-click-middle": "mode",
+            "on-click-right": "shift_up",
+            "on-click": "shift_down"
+        }
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}󰔄 {icon}",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ],
+        "interval": 1
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "interval": 1,
+        "format": "{percent}% {icon}",
+        "format-icons": [
+          " ", " ", " ", "󰃝 ", "󰃞 ", "󰃟 ", "󰃠 "
+        ]
+    },
+    "network": {
+        // "interface": "wlo1", // (Optional) To force the use of this interface
+        // "format-alt": "󰳘 {bandwidthUpBytes} 󰛴 {bandwidthDownBytes}",
+        // "format-wifi-alt": "󰳘 {bandwidthUpBytes} 󰛴 {bandwidthDownBytes} ",
+        // "format-ethernet-alt": "󰳘 {bandwidthUpBytes} 󰛴 {bandwidthDownBytes} 󰈀",
+        "tooltip-format": "{ifname} via {gwaddr}",
+	    "on-click-right": "$HOME/.local/bin/wifi-menu.sh",
+        "tooltip-format-wifi": "{essid}({signalStrength}%) ",
+        "tooltip-format-ethernet": "󰈀 {ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ",
+        "format": "{ifname}: {ipaddr}/{cidr}",
+        "format-ethernet": "󰈀 : {ipaddr}/{cidr}",
+        "interval": 1,
+        "max-length": 50,
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "<span foreground='#458588'>{icon}</span> {volume}%  {format_source}",
+        "format-bluetooth-muted": "<span foreground='#fb4934'>󰖁</span>  {format_source}",
+        "format-muted": "󰖁 {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "󰋋",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "qpwgraph",
+        "input": true,
+        "interval": 1
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "bluetooth": {
+        "on-click": "~/.local/bin/bluetooth-control",
+        "on-click-right": "overskride",
+        "on-click-middle": "overskride",
+        "format": "{icon}",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        "interval": 15,
+        "format-icons": {
+            "on": "",
+            "off": "󰂲",
+            "disabled": "󰂲",
+            "connected": ""
+        },
+	    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+    "custom/power": {
+        "format": "<span></span>",
+        "on-click": "wlogout",
+        "tooltip": false
+    },
+    "custom/wallpaper": {
+	 "format": "🖼️",
+	  "on-click": "~/.config/waybar/scripts/change-wallpaper.sh"
+    },
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+         },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+    "format-disconnected": "Disconnected 󰝛",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} 󰝛",
+    "interval": 1,
+    "on-click": "mpc toggle",
+    "on-click-right": "sonata",
+    "consume-icons": {
+        "on": " " // Icon shows only when "consume" is on
+    },
+    "random-icons": {
+        // "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+        "on": " "
+    },
+    "repeat-icons": {
+        "on": " "
+    },
+    "single-icons": {
+        "on": "1 "
+    },
+    "state-icons": {
+        "paused": "",
+        "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+}
+
