@@ -255,5 +255,13 @@
     "tooltip-format": "MPD (connected)",
     "tooltip-format-disconnected": "MPD (disconnected)"
     },
+    "custom/updates": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/checkupdates.sh",
+        "interval": 300,
+        "on-click": "ghostty -e yay -Syu",
+        "tooltip": true,
+        "return-type": "json"
+    },
 }
 

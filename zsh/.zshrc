@@ -91,6 +91,8 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
+export EDITOR=nvim
+export VISUAL=nvim
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -117,6 +119,7 @@ export LANG=en_US.UTF-8
 autoload -Uz compinit
 compinit
 source ~/.zsh_aliases
+source ~/.cf-completion.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # Created by `pipx` on 2025-04-09 18:45:07

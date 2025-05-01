@@ -3,20 +3,19 @@
     "layer": "bottom",
     "mode": "dock",
     "position": "top",
-    "height": 30,
-    //"passthrough": false,
-    "ipc":true,
-    //"spacing": 3,
+    "height": 34,
+    "spacing": 2,
+    "ipc": true,
     "reload_style_on_change": true,
     "modules-left": [
         "hyprland/workspaces",
-        "mpd",
+        "mpd"
     ],
     "modules-center": [
         "clock",
-        "hyprland/window",
     ],
     "modules-right": [
+        "custom/updates",
         "custom/wallpaper",
         "tray",
         "custom/notification",
@@ -24,9 +23,8 @@
         "bluetooth",
         "pulseaudio",
         "group/hardware",
-        "battery",
         "custom/power"
-    ],
+    ]
 }
 
 
