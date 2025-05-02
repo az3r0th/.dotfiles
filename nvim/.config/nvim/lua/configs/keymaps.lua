@@ -14,6 +14,8 @@
 -- <leader>?  - Open Cheatsheet
 -- <leader>ch - Open Cheatsheet
 -- <leader>rl - Reload Lazy Config
+-- <leader>tt - Toggle terminal
+-- <leader>tg - Toggle lazygit
 
 -- Go specific shortcuts:
 -- <leader>gt - Run Go test
@@ -77,4 +79,9 @@ local function ReloadLazyConfig()
   vim.cmd("Lazy sync")
 end
 
-keymap("n", "<leader>rl", ReloadLazyConfig, { desc = "Reload Neovim configuration and sync plugins" }) 
+keymap("n", "<leader>rl", ReloadLazyConfig, { desc = "Reload Neovim configuration and sync plugins" })
+
+-- Terminal: Toggle terminal and lazygit
+local terminal = require("configs.terminal")
+keymap("n", "<leader>tt", terminal.regular_term_toggle, { desc = "Toggle terminal" })
+keymap("n", "<leader>tg", terminal.lazygit_toggle, { desc = "Toggle lazygit" }) 
