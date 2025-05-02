@@ -15,6 +15,7 @@ export ZSH="$HOME/.oh-my-zsh"
 eval "$(starship init zsh)"
 source <(fzf --zsh)
 
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -81,7 +82,7 @@ source <(fzf --zsh)
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf-tab aws docker kubectl zsh-fzf-history-search)
+plugins=(git fzf-tab aws command-not-found docker kubectl zsh-fzf-history-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,6 +121,7 @@ autoload -Uz compinit
 compinit
 source ~/.zsh_aliases
 source ~/.cf-completion.zsh
+source /usr/share/doc/pkgfile/command-not-found.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # Created by `pipx` on 2025-04-09 18:45:07
