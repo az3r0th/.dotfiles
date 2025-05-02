@@ -23,7 +23,9 @@ return {
     build = "make install_jsregexp",
     config = function()
       local luasnip = require('luasnip')
-      vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+      local keymap = vim.keymap.set
+      -- LuaSnip specific keymaps
+      keymap({ 'i', 's' }, '<Tab>', function()
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         else
@@ -31,7 +33,7 @@ return {
         end
       end, { expr = true })
 
-      vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
+      keymap({ 'i', 's' }, '<S-Tab>', function()
         if luasnip.jumpable(-1) then
           luasnip.jump(-1)
         end
@@ -39,6 +41,5 @@ return {
       -- Load friendly-snippets
       require('luasnip.loaders.from_vscode').lazy_load()
     end
-
   }
 }

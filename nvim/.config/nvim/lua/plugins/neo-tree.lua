@@ -9,6 +9,7 @@ return {
     },
     config = function()
       local neo_tree = require("neo-tree")
+      local keymap = vim.keymap.set
       neo_tree.setup({
         filesystem = {
           filtered_items = {
@@ -19,12 +20,14 @@ return {
           },
         },
       })
-      vim.keymap.set('n', '<M-n>', ':Neotree toggle<CR>', { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>th', function()
+
+      -- Neo-tree specific keymaps
+      keymap('n', '<M-n>', ':Neotree toggle<CR>', { noremap = true, silent = true, desc = "Toggle Neo-tree" })
+      keymap('n', '<leader>th', function()
           neo_tree.setup({
             filesystem = {
               filtered_items = {
-                show_hidden = not require("neo-tree").config.filesystem.filtered_items.show_hidden,
+                show_hidden = not neo_tree.config.filesystem.filtered_items.show_hidden,
               },
             },
           })

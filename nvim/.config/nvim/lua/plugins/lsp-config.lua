@@ -32,7 +32,7 @@ return {
               settings = {
                 Lua = {
                   diagnostics = {
-                    globals = { "vim" },
+                    globals = {"vim"},
                   },
                 },
               },
@@ -82,14 +82,14 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
+      local keymap = vim.keymap.set
       local on_attach = function(_, bufnr)
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
-        -- Keybindings
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+        -- LSP specific keymaps
+        keymap("n", "gd", vim.lsp.buf.definition, bufopts)
+        keymap("n", "gr", vim.lsp.buf.references, bufopts)
+        keymap("n", "K", vim.lsp.buf.hover, bufopts)
+        keymap("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
       end
 
       -- Apply on_attach to all LSP clients
