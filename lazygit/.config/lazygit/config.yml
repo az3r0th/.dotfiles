@@ -1,0 +1,66 @@
+gui:
+  theme:
+    activeBorderColor:
+      - blue
+      - bold
+    inactiveBorderColor:
+      - white
+    optionsTextColor:
+      - yellow
+    selectedLineBgColor:
+      - black
+    cherryPickedCommitBgColor:
+      - blue
+    cherryPickedCommitFgColor:
+      - white
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - white
+    searchingActiveBorderColor:
+      - cyan
+  showFileTree: true
+  showRandomTip: true
+  mouseEvents: true
+  skipRewordInEditorWarning: true
+  nerdFontsVersion: "3"
+keybinding:
+  universal:
+    quit: 'q'
+    return: '<esc>'
+    prevItem: 'k'
+    nextItem: 'j'
+    prevPage: '<pgup>'
+    nextPage: '<pgdown>'
+    scrollLeft: 'h'
+    scrollRight: 'l'
+    optionMenu: '<tab>'
+    confirm: '<enter>'
+    edit: 'e'
+    openRecentRepos: 'r'
+  files:
+    commitChanges: 'c'
+    commitChangesWithEditor: 'C'
+    stashAllChanges: 's'
+    viewStashOptions: 'S'
+    fetch: 'f'
+    pull: 'p'
+    push: 'P'
+    rebaseBranch: 'R'
+    checkoutBranch: 'b'
+    createBranch: 'B'
+    mergeIntoCurrentBranch: 'm'
+    viewResetOptions: 'x'
+    viewBisectOptions: 'i'
+    openMergeOptions: 'M'
+    openDiffTool: 'D'
+    toggleTreeView: 't'
+customCommands:
+  - key: 'F'
+    context: 'files'
+    command: 'git fetch --all --prune'
+    description: 'Fetch all remotes'
+    loadingText: 'Fetching...'
+notARepository: 'quit'
+os:
+  editPreset: 'nvim'

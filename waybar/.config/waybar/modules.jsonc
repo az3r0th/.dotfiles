@@ -258,7 +258,7 @@
     "custom/updates": {
         "format": "{}",
         "exec": "~/.config/waybar/scripts/checkupdates.sh",
-        "interval": 300,
+        "interval": 60,
         "on-click": "ghostty -e yay -Syu",
         "tooltip": true,
         "return-type": "json"
