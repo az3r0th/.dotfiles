@@ -13,7 +13,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Starship Prompt
 eval "$(starship init zsh)"
-source <(fzf --zsh)
+source <(fzf --zsh) 2>/dev/null
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -119,6 +119,31 @@ export VISUAL=nvim
 autoload -Uz compinit
 compinit
 source ~/.zsh_aliases
+
+# yu: yay -Syu, but warn before kernel/NVIDIA updates inside a Wayland session
+# (userspace/kmod mismatch after upgrade -> black screen until reboot)
+unalias yu 2>/dev/null
+function yu {
+  if [[ -n $WAYLAND_DISPLAY ]] && (( $+commands[checkupdates] )); then
+    local pending rc
+    pending=$(checkupdates 2>/dev/null); rc=$?
+    if (( rc == 1 )); then
+      print -P "%F{yellow}checkupdates failed; skipping kernel/NVIDIA check%f"
+    elif [[ -n $pending ]]; then
+      local risky
+      risky=$(print -r -- "$pending" | grep -E '^(nvidia[^ ]*|lib32-nvidia-utils|linux|linux-headers) ')
+      if [[ -n $risky ]]; then
+        print -P "%B%F{red}Kernel/NVIDIA updates pending:%f%b"
+        print -r -- "$risky" | sed 's/^/  /'
+        print -P "%F{red}You're in a Wayland session. Upgrading these needs a reboot right after.%f"
+        local ans
+        read -q "ans?Continue with yay -Syu? [y/N] " || { print; return 1; }
+        print
+      fi
+    fi
+  fi
+  yay -Syu "$@"
+}
 source ~/.cf-completion.zsh
 source /usr/share/doc/pkgfile/command-not-found.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -126,3 +151,13 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 # Created by `pipx` on 2025-04-09 18:45:07
 export PATH="$PATH:/home/azeroth/.local/bin"
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/azeroth/.lmstudio/bin"
+# End of LM Studio CLI section
+
+eval "$(fnm env --use-on-cd)"
+source /home/azeroth/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
+
+# Added by Antigravity CLI installer
+export PATH="/home/azeroth/.local/bin:$PATH"
