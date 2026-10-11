@@ -1,30 +1,70 @@
-{
-    "include": "~/.config/waybar/modules.jsonc",
-    "layer": "bottom",
-    "mode": "dock",
-    "position": "top",
-    "height": 34,
-    "spacing": 2,
-    "ipc": true,
-    "reload_style_on_change": true,
-    "modules-left": [
-        "hyprland/workspaces",
-        "mpd"
-    ],
-    "modules-center": [
-        "clock",
-    ],
-    "modules-right": [
-        "custom/updates",
-        "custom/wallpaper",
-        "tray",
-        "custom/notification",
-        "network",
-        "bluetooth",
-        "pulseaudio",
-        "group/hardware",
-        "custom/power"
-    ]
-}
-
-
+[
+    {
+        // Primary bar — HDMI-A-1 (full bar with tray)
+        "output": "HDMI-A-1",
+        "include": "~/.config/waybar/modules.jsonc",
+        "layer": "top",
+        "mode": "dock",
+        "position": "top",
+        // OLED: hidden until cursor hits top edge (hypr/scripts/waybar-peek.py)
+        "start_hidden": true,
+        "exclusive": false,
+        "on-sigusr1": "show",
+        "on-sigusr2": "hide",
+        "height": 40,
+        "margin": "6 8 0 8",
+        "spacing": 2,
+        "reload_style_on_change": true,
+        "modules-left": [
+            "hyprland/workspaces"
+        ],
+        "modules-center": [
+            "mpris"
+        ],
+        "modules-right": [
+            "custom/updates",
+            "custom/claude-usage",
+            "custom/notification",
+            "network",
+            "bluetooth",
+            "pulseaudio",
+            "group/hardware",
+            "custom/monitor-input",
+            "clock",
+            "custom/theme",
+            "custom/power"
+        ]
+    },
+    {
+        // Secondary bar — DP-3 (tray lives here to avoid duplicate StatusNotifier registration)
+        "output": "DP-3",
+        "include": "~/.config/waybar/modules.jsonc",
+        "layer": "top",
+        "mode": "dock",
+        "position": "top",
+        // OLED: hidden until cursor hits top edge (hypr/scripts/waybar-peek.py)
+        "start_hidden": true,
+        "exclusive": false,
+        "on-sigusr1": "show",
+        "on-sigusr2": "hide",
+        "height": 40,
+        "spacing": 2,
+        "modules-left": [
+            "hyprland/workspaces"
+        ],
+        "modules-center": [
+        ],
+        "modules-right": [
+            "tray",
+            "custom/claude-usage",
+            "custom/notification",
+            "network",
+            "bluetooth",
+            "pulseaudio",
+            "group/hardware",
+            "clock",
+            "custom/theme",
+            "custom/power"
+        ]
+    }
+]

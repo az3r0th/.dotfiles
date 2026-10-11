@@ -22,7 +22,6 @@
         "tooltip-format": "{app}: {title}"
     },
     "hyprland/workspaces": {
-        "active-only": true,
         "disable-scroll": true,
         "sort-by-number": true,
         "warp-on-scroll": true,
@@ -33,31 +32,33 @@
     },
     "hyprland/language": {
         "format-en": "en",
-        "format-ar": "عربي"
-    },
-    "hyprland/window": {
-        "format": "{class}",
-        "max-length": 50,
-        "icon": true,
-        "icon-size": 16,
-        "seperate-outputs": true
     },
     "group/hardware": {
-        "orientation": "horizontal",
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "hardware-child",
+            "transition-left-to-right": false
+        },
         "modules": [
-            "temperature",
+            "custom/hardware-icon",
             "cpu",
-            "memory"
+            "memory",
+            "temperature"
         ]
+    },
+    "custom/hardware-icon": {
+        "format": "󰻠",
+        "tooltip": false
     },
     "cpu": {
         "format": "{usage}% ",
         "tooltip": true,
-        "interval": 1
+        "interval": 3
     },
     "memory": {
         "format": "{}% ",
-        "interval": 1
+        "interval": 5
     },
     "battery": {
         "states": {
@@ -79,7 +80,7 @@
         "format-time": "{H}h {M}min",
         "tooltip": true,
         "tooltip-format": "{timeTo} {power}w",
-        "interval": 1
+        "interval": 15
     },
     "battery#bat2": {
         "bat": "BAT2"
@@ -92,14 +93,14 @@
         }
     },
      "tray": {
-         "format": "<span foreground='#ebdbb2'>{icon}</span>",
+         "format": "{icon}",
      	  "icon-size": 14,
      	  "spacing": 5
      },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "<span foreground='#98971a'> </span><span>{:%I:%M %a %d}</span>", //"{:%I:%M %p}"
-        "format-alt": "<span foreground='#b16286'> </span><span>{:%H:%M %a %d}</span>", //"{:%Y-%m-%d}",
+        "format": "  {:%I:%M %a %d}", //"{:%I:%M %p}"
+        "format-alt": "  {:%H:%M %a %d}", //"{:%Y-%m-%d}",
         "actions": {
             "on-click-middle": "mode",
             "on-click-right": "shift_up",
@@ -117,7 +118,7 @@
             "",
             ""
         ],
-        "interval": 1
+        "interval": 3
     },
     "backlight": {
         "device": "intel_backlight",
@@ -133,22 +134,22 @@
         // "format-wifi-alt": "󰳘 {bandwidthUpBytes} 󰛴 {bandwidthDownBytes} ",
         // "format-ethernet-alt": "󰳘 {bandwidthUpBytes} 󰛴 {bandwidthDownBytes} 󰈀",
         "tooltip-format": "{ifname} via {gwaddr}",
-	    "on-click-right": "$HOME/.local/bin/wifi-menu.sh",
+	    "on-click-right": "~/.config/waybar/scripts/wifi-menu.sh",
         "tooltip-format-wifi": "{essid}({signalStrength}%) ",
-        "tooltip-format-ethernet": "󰈀 {ifname}",
+        "tooltip-format-ethernet": "󰈀 {ifname}:{ipaddr}/{cidr}",
         "tooltip-format-disconnected": "Disconnected",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ",
         "format": "{ifname}: {ipaddr}/{cidr}",
         "format-ethernet": "󰈀 : {ipaddr}/{cidr}",
-        "interval": 1,
+        "interval": 5,
         "max-length": 50,
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "<span foreground='#458588'>{icon}</span> {volume}%  {format_source}",
-        "format-bluetooth-muted": "<span foreground='#fb4934'>󰖁</span>  {format_source}",
+        "format-bluetooth": "{icon} {volume}%  {format_source}",
+        "format-bluetooth-muted": "󰖁  {format_source}",
         "format-muted": "󰖁 {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
@@ -166,9 +167,9 @@
             ]
         },
         "on-click": "pavucontrol",
-        "on-click-right": "qpwgraph",
+        "on-click-right": "hyprpwcenter",
         "input": true,
-        "interval": 1
+        "interval": 5
     },
     "power-profiles-daemon": {
         "format": "{icon}",
@@ -181,9 +182,8 @@
         }
     },
     "bluetooth": {
-        "on-click": "~/.local/bin/bluetooth-control",
-        "on-click-right": "overskride",
-        "on-click-middle": "overskride",
+        "on-click": "blueman-manager",
+        "on-click-middle": "",
         "format": "{icon}",
         "format-connected": " {device_alias}",
         "format-connected-battery": " {device_alias} {device_battery_percentage}%",
@@ -199,14 +199,18 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
     },
+    "custom/theme": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/theme-toggle.sh",
+        "on-click": "~/.config/waybar/scripts/theme-toggle.sh toggle",
+        "return-type": "json",
+        "interval": "once",
+        "signal": 8
+    },
     "custom/power": {
         "format": "<span></span>",
         "on-click": "wlogout",
         "tooltip": false
-    },
-    "custom/wallpaper": {
-	 "format": "🖼️",
-	  "on-click": "~/.config/waybar/scripts/change-wallpaper.sh"
     },
     "custom/notification": {
         "tooltip": false,
@@ -228,13 +232,37 @@
         "on-click-right": "swaync-client -d -sw",
         "escape": true
     },
+    "mpris": {
+        "format": "{player_icon}  {dynamic}",
+        "format-paused": "{player_icon}  {dynamic}",
+        "format-stopped": "󰓃  Nothing playing",
+        "dynamic-len": 40,
+        "player-icons": {
+            "default": "󰎆",
+            "spotify": "󰓇",
+            "firefox": "󰈹",
+            "chromium": "󰍚",
+            "google-chrome": "󰍚",
+            "brave": "󰖟",
+            "vlc": "󰕼"
+        },
+        "status-icons": {
+            "paused": "⏸",
+            "playing": "⏵",
+            "stopped": "⏹"
+        },
+        "on-click": "~/.config/waybar/scripts/toggle-media-popup.sh",
+        "on-click-middle": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "tooltip-format": "{player}: {dynamic}"
+    },
     "mpd": {
     "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
     "format-disconnected": "Disconnected 󰝛",
     "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} 󰝛",
     "interval": 1,
     "on-click": "mpc toggle",
-    "on-click-right": "sonata",
+    "on-click-right": "sh -c 'command -v sonata >/dev/null 2>&1 && sonata || notify-send \"Waybar\" \"sonata is not installed\"'",
     "consume-icons": {
         "on": " " // Icon shows only when "consume" is on
     },
@@ -263,5 +291,21 @@
         "tooltip": true,
         "return-type": "json"
     },
+    "custom/claude-usage": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/claude-usage.sh",
+        "on-click": "ghostty -e ccusage blocks --live",
+        "interval": 10,
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/monitor-input": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/monitor-input.sh",
+        "on-click": "~/.config/waybar/scripts/monitor-input.sh macbook",
+        "on-click-right": "~/.config/waybar/scripts/monitor-input.sh pc",
+        "interval": 3,
+        "return-type": "json",
+        "tooltip": false
+    }
 }
-

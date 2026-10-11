@@ -2,6 +2,7 @@
 
 # Check for pacman updates
 pacman_updates=$(checkupdates 2>/dev/null | wc -l)
+aur_updates=0
 
 # Check for AUR updates if yay is installed
 if command -v yay &> /dev/null; then
