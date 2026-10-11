@@ -9,20 +9,36 @@ return {
     local builtin = require('telescope.builtin')
     local keymap = vim.keymap.set
     local telescope = require('telescope')
+
+    local function current_buffer_dir()
+      local dir = vim.fn.expand("%:p:h")
+      if dir == nil or dir == "" then
+        return vim.loop.cwd()
+      end
+      return dir
+    end
+
     -- Load telescope file browser extension
     telescope.load_extension('file_browser')
 
     -- Telescope specific keymaps
     keymap('n', '<leader>ff', function()
-      builtin.find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } })
+      builtin.find_files({ find_command = { 'rg', '--files', '--hidden', '--follow', '-g', '!.git' } })
     end, { desc = 'Telescope find files' })
-    keymap('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+    keymap('n', '<leader>fg', function()
+      builtin.live_grep({
+        additional_args = function()
+          return { '--hidden', '--follow', '-g', '!.git' }
+        end,
+      })
+    end, { desc = 'Telescope live grep' })
     keymap('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
     keymap('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
     keymap('n', '<leader>fe', function()
+      local dir = current_buffer_dir()
       telescope.extensions.file_browser.file_browser({
-        path = "%:p:h",
-        cwd = vim.fn.expand("%:p:h"),
+        path = dir,
+        cwd = dir,
         respect_gitignore = true,
         hidden = true,
         grouped = true,
